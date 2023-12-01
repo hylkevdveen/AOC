@@ -19,3 +19,24 @@ func InputLines() []string {
 	}
 	return ret
 }
+
+func Reverse(str string) string {
+	var rts string
+	for i := len(str) - 1; i >= 0; i-- {
+		rts += string(str[i])
+	}
+	return rts
+}
+
+var DigitStrings = []string{
+	"zero",
+	"one",
+	"two",
+	"three",
+	"four",
+	"five",
+	"six",
+	"seven",
+	"eight",
+	"nine",
+}

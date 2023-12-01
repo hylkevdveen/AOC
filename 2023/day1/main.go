@@ -8,18 +8,6 @@ import (
 	"unicode"
 )
 
-var nums = []string{
-	"one",
-	"two",
-	"three",
-	"four",
-	"five",
-	"six",
-	"seven",
-	"eight",
-	"nine",
-}
-
 func main() {
 	sum := 0
 	for _, line := range aoc.InputLines() {
@@ -66,10 +54,10 @@ func Part2(line string) int {
 			break
 		}
 		found := false
-		for val, digit := range nums {
+		for val, digit := range aoc.DigitStrings {
 			if strings.HasPrefix(line[i:], digit) {
-				fmt.Printf("First digit: %d\n", val+1)
-				number += 10 * (val + 1)
+				fmt.Printf("First digit: %d\n", val)
+				number += 10 * (val)
 				found = true
 				break
 			}
@@ -87,10 +75,10 @@ func Part2(line string) int {
 			break
 		}
 		found := false
-		for val, digit := range nums {
+		for val, digit := range aoc.DigitStrings {
 			if strings.HasSuffix(line[:i], digit) {
-				fmt.Printf("Last digit: %d\n", val+1)
-				number += val + 1
+				fmt.Printf("Last digit: %d\n", val)
+				number += val
 				found = true
 				break
 			}
