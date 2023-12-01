@@ -1,10 +1,8 @@
 package main
 
 import (
-	"bufio"
+	"../../aoc"
 	"fmt"
-	"log"
-	"os"
 	"strconv"
 	"strings"
 	"unicode"
@@ -23,15 +21,9 @@ var nums = []string{
 }
 
 func main() {
-	file, _ := os.Open("input.txt")
-	defer file.Close()
-	scanner := bufio.NewScanner(file)
 	sum := 0
-	for scanner.Scan() {
-		sum += Part2(scanner.Text())
-	}
-	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
+	for _, line := range aoc.InputLines() {
+		sum += Part2(line)
 	}
 	fmt.Println(sum)
 }
