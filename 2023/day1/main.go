@@ -13,6 +13,7 @@ func main() {
 	fmt.Println(Part2())
 }
 
+// Part1 Find the first and last digit of each string and sum the number you get from first+last
 func Part1() int {
 	sum := 0
 	for _, line := range aoc.InputLines() {
@@ -40,6 +41,7 @@ func Part1() int {
 	return sum
 }
 
+// Part2 Do the same as Part1 except digits can be written out
 func Part2() int {
 	number := 0
 	for _, line := range aoc.InputLines() {
