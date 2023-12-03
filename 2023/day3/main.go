@@ -47,13 +47,36 @@ func ReadEngineSchematics() *EngineSchematics {
 	}
 }
 
+func (e *EngineSchematics) BuildEngineParts() {
+	for row, line := range e.grid {
+		partStart := -1
+		partEnd := -1
+		for pos := 0; pos < len(line); pos++ {
+			if unicode.IsDigit(line[pos]) {
+				if partStart == -1 {
+					partStart = pos
+				}
+				partEnd = pos
+			} else {
+				if partStart != -1 {
+					e.BuildEnginePart(row, partStart, partEnd)
+					partStart = -1
+				}
+			}
+		}
+		if partStart != -1 {
+			e.BuildEnginePart(row, partStart, partEnd)
+		}
+	}
+}
+
 func (e *EngineSchematics) BuildEnginePart(y int, xStart int, xEnd int) *EnginePart {
 	enginePart := EnginePart{
 		y:      y,
 		xStart: xStart,
 		xEnd:   xEnd,
 	}
-	if !e.IsValidPartNumber(enginePart) {
+	if !e.IsValidPart(enginePart) {
 		return nil
 	}
 	partNumber, _ := strconv.Atoi(string(e.grid[y][xStart : xEnd+1]))
@@ -70,8 +93,12 @@ func (e *EngineSchematics) IsValidY(y int) bool {
 	return y >= 0 && y <= e.maxY
 }
 
-// IsValidPartNumber returns whether the given engine part is surrounded by a special character
-func (e *EngineSchematics) IsValidPartNumber(part EnginePart) bool {
+func (e *EngineSchematics) IsSpecialChar(c rune) bool {
+	return !(unicode.IsDigit(c) || c == Period)
+}
+
+// IsValidPart returns whether the given engine part is surrounded by a special character
+func (e *EngineSchematics) IsValidPart(part EnginePart) bool {
 	if !e.IsValidY(part.y) || !e.IsValidX(part.xStart) || !e.IsValidX(part.xEnd) {
 		return false
 	}
@@ -83,7 +110,7 @@ func (e *EngineSchematics) IsValidPartNumber(part EnginePart) bool {
 			if !e.IsValidX(j) {
 				continue
 			}
-			if !(unicode.IsDigit(e.grid[i][j]) || e.grid[i][j] == Period) {
+			if e.IsSpecialChar(e.grid[i][j]) {
 				return true
 			}
 		}
@@ -115,10 +142,13 @@ func (e *EngineSchematics) CalculateGearRatio(x int, y int) int {
 	return gearRatio
 }
 
-// Main
+// ==========
+// == Main ==
+// ==========
 
 func main() {
 	engineSchematics := ReadEngineSchematics()
+	engineSchematics.BuildEngineParts()
 	fmt.Println(Part1(engineSchematics))
 	fmt.Println(Part2(engineSchematics))
 }
@@ -126,39 +156,13 @@ func main() {
 // Part1 Sum the values of the engine parts that are adjacent to a symbol
 func Part1(engineSchematics *EngineSchematics) int {
 	partNumbers := 0
-	for row, line := range engineSchematics.grid {
-		numberStart := -1
-		numberEnd := -1
-		for pos := 0; pos < len(line); pos++ {
-			if unicode.IsDigit(line[pos]) {
-				if numberStart == -1 {
-					numberStart = pos
-				}
-				numberEnd = pos
-			} else {
-				if numberStart != -1 {
-					part := engineSchematics.BuildEnginePart(row, numberStart, numberEnd)
-					if part != nil {
-						fmt.Printf("%d is a valid part (row %d, %d-%d)\n", part.value, part.y, part.xStart, part.xEnd)
-						partNumbers += part.value
-					}
-					numberStart = -1
-				}
-			}
-		}
-		if numberStart != -1 {
-			part := engineSchematics.BuildEnginePart(row, numberStart, numberEnd)
-			if part != nil {
-				fmt.Printf("%d is a valid part (row %d, %d-%d)\n", part.value, part.y, part.xStart, part.xEnd)
-				partNumbers += part.value
-			}
-		}
+	for _, part := range engineSchematics.parts {
+		partNumbers += part.value
 	}
 	return partNumbers
 }
 
 // Part2 Sum the gear ratio (product of engine parts) of all gears (asterisks) that connect multiple engine parts
-// Uses []EnginePart of Part1
 func Part2(engineSchematics *EngineSchematics) int {
 	gearRatios := 0
 	for row, line := range engineSchematics.grid {
