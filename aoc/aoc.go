@@ -28,6 +28,13 @@ func Reverse(str string) string {
 	return rts
 }
 
+func AbsDiffInt(a int, b int) int {
+	if a < b {
+		return b - a
+	}
+	return a - b
+}
+
 var DigitStrings = []string{
 	"zero",
 	"one",
