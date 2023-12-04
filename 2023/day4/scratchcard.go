@@ -8,8 +8,8 @@ import (
 type ScratchCard struct {
 	winningNumbers  []int
 	cardNumbers     []int
-	matchingNumbers int
-	copies          int
+	MatchingNumbers int
+	Copies          int
 }
 
 func ReadScratchCard(line string) *ScratchCard {
@@ -20,8 +20,8 @@ func ReadScratchCard(line string) *ScratchCard {
 	return &ScratchCard{
 		winningNumbers:  winningNumbers,
 		cardNumbers:     cardNumbers,
-		matchingNumbers: winCount,
-		copies:          1,
+		MatchingNumbers: winCount,
+		Copies:          1,
 	}
 }
 

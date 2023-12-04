@@ -18,22 +18,22 @@ func main() {
 func Part1(scratchCards []*ScratchCard) int {
 	value := 0
 	for _, scratchCard := range scratchCards {
-		if scratchCard.matchingNumbers > 0 {
-			value += 1 << (scratchCard.matchingNumbers - 1)
+		if scratchCard.MatchingNumbers > 0 {
+			value += 1 << (scratchCard.MatchingNumbers - 1)
 		}
 	}
 	return value
 }
 
-// Part2 Calculate the number of scratchcards you get if each winners gives you copies
+// Part2 Calculate the number of scratchcards you get if each winner gives you copies
 func Part2(scratchCards []*ScratchCard) int {
 	total := 0
 	for idx, scratchCard := range scratchCards {
-		for repeat := 0; repeat < scratchCard.copies; repeat++ {
+		for repeat := 0; repeat < scratchCard.Copies; repeat++ {
 			total++
-			if scratchCard.matchingNumbers > 0 {
-				for update := 1; update <= scratchCard.matchingNumbers; update++ {
-					scratchCards[idx+update].copies++
+			if scratchCard.MatchingNumbers > 0 {
+				for update := 1; update <= scratchCard.MatchingNumbers; update++ {
+					scratchCards[idx+update].Copies++
 				}
 			}
 		}
