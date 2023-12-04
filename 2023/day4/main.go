@@ -3,62 +3,7 @@ package main
 import (
 	"../../aoc"
 	"fmt"
-	"strconv"
-	"strings"
 )
-
-// =================
-// == ScratchCard ==
-// =================
-
-type ScratchCard struct {
-	winningNumbers  []int
-	cardNumbers     []int
-	matchingNumbers int
-	copies          int
-}
-
-func ReadScratchCard(line string) *ScratchCard {
-	scratchCard := line[strings.Index(line, ": ")+2:]
-	winningNumbers := readNumbers(scratchCard[:strings.Index(scratchCard, " | ")])
-	cardNumbers := readNumbers(scratchCard[strings.Index(scratchCard, " | ")+3:])
-	winCount := matchingNumbers(winningNumbers, cardNumbers)
-	return &ScratchCard{
-		winningNumbers:  winningNumbers,
-		cardNumbers:     cardNumbers,
-		matchingNumbers: winCount,
-		copies:          1,
-	}
-}
-
-func readNumbers(numberString string) []int {
-	var numbers []int
-	numberSlice := strings.Split(numberString, " ")
-	for _, number := range numberSlice {
-		if number != "" {
-			num, _ := strconv.Atoi(number)
-			numbers = append(numbers, num)
-		}
-	}
-	return numbers
-}
-
-func matchingNumbers(winners []int, numbers []int) int {
-	matches := 0
-	for _, winner := range winners {
-		for _, number := range numbers {
-			if winner == number {
-				matches++
-				break
-			}
-		}
-	}
-	return matches
-}
-
-// ==========
-// == Main ==
-// ==========
 
 func main() {
 	var scratchCards []*ScratchCard
@@ -69,6 +14,7 @@ func main() {
 	fmt.Println(Part2(scratchCards))
 }
 
+// Part1 Calculate the value of all your winning scratchcards
 func Part1(scratchCards []*ScratchCard) int {
 	value := 0
 	for _, scratchCard := range scratchCards {
@@ -79,6 +25,7 @@ func Part1(scratchCards []*ScratchCard) int {
 	return value
 }
 
+// Part2 Calculate the number of scratchcards you get if each winners gives you copies
 func Part2(scratchCards []*ScratchCard) int {
 	total := 0
 	for idx, scratchCard := range scratchCards {
