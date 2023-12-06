@@ -1,19 +1,19 @@
 package main
 
 import (
-	"./manual"
+	m "./manual"
 	"fmt"
 	"sync"
 )
 
 func main() {
-	man := manual.ReadManual()
-	fmt.Println(Part1(man))
-	fmt.Println(Part2(man))
+	manual := m.ReadManual()
+	fmt.Println(Part1(manual))
+	fmt.Println(Part2(manual))
 }
 
 // Part1 Find the lowest location value by passing all seeds through the given mappings
-func Part1(manual *manual.Manual) int {
+func Part1(manual *m.Manual) int {
 	lowestLocation := -1
 	for _, seed := range manual.Seeds {
 		seedLocation := getSeedLocation(seed, manual.Mappings)
@@ -28,7 +28,7 @@ func Part1(manual *manual.Manual) int {
 	return lowestLocation
 }
 
-func getSeedLocation(seed int, manual [][]*manual.Mapping) int {
+func getSeedLocation(seed int, manual [][]*m.Mapping) int {
 	target := seed
 	for _, mappings := range manual {
 		source := target
@@ -43,7 +43,7 @@ func getSeedLocation(seed int, manual [][]*manual.Mapping) int {
 }
 
 // Part2 Do the same as Part1 except the input seeds are ranges
-func Part2(manual *manual.Manual) int {
+func Part2(manual *m.Manual) int {
 	wg := &sync.WaitGroup{}
 	lowestLocations := make(chan int, 10)
 	for {
@@ -67,7 +67,7 @@ func Part2(manual *manual.Manual) int {
 	return lowestLocation
 }
 
-func getLowestLocation(lowestLocations chan int, wg *sync.WaitGroup, manual *manual.Manual, seedStart int, seedRange int) {
+func getLowestLocation(lowestLocations chan int, wg *sync.WaitGroup, manual *m.Manual, seedStart int, seedRange int) {
 	lowestLocation := -1
 	for seed := seedStart; seed < seedStart+seedRange; seed++ {
 		seedLocation := getSeedLocation(seed, manual.Mappings)
