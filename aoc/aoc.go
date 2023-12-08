@@ -37,7 +37,7 @@ func AbsDiffInt(a int, b int) int {
 	return a - b
 }
 
-// GCD finds the greatest common divisor (GCD) via Euclidean algorithm
+// GCD finds the greatest common divisor (GCD) via Euclidean algorithm (https://siongui.github.io/2017/06/03/go-find-lcm-by-gcd/)
 func GCD(a, b int) int {
 	for b != 0 {
 		t := b
@@ -47,7 +47,7 @@ func GCD(a, b int) int {
 	return a
 }
 
-// LCM finds the Least Common Multiple (LCM) via GCD
+// LCM finds the Least Common Multiple (LCM) via GCD (https://siongui.github.io/2017/06/03/go-find-lcm-by-gcd/)
 func LCM(a, b int, integers ...int) int {
 	result := a * b / GCD(a, b)
 
