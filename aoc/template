@@ -1,0 +1,23 @@
+package main
+
+import (
+	"../../aoc"
+	"fmt"
+)
+
+func main() {
+	for _, line := range aoc.InputLines() {
+		fmt.Println(line)
+	}
+	fmt.Println(Part1())
+	fmt.Println(Part2())
+}
+
+func Part1() int {
+	total := 0
+	return total
+}
+func Part2() int {
+	total := 0
+	return total
+}
