@@ -9,6 +9,7 @@ case $language in
   "go" ) echo "Setting up day for Go" ;;
   "ipynb" ) echo "Setting up day for Jupyter Notebook" ;;
   "" ) { echo "No language chosen, proceeding with Go"; language="go"; } ;;
+  * ) { echo "'$language' is not a valid programming language. If you have a template for it, add it to the case in this script."; exit 1; }
 esac
 
 dir="$year/day$day"
