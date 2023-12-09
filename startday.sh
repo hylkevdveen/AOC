@@ -38,7 +38,5 @@ curl -fsS --request GET "$aoc" -H "cookie: session=$AOC_SESSION" -o "$dir/input.
 
 echo "Created $dir/index.txt"
 
-case $language in
-  "go" ) { cp template/go "$dir/main.go"; echo "Created $dir/main.go"; } ;;
-  "ipynb" ) { cp template/ipynb "$dir/$day.ipynb"; echo "Created $dir/$day.ipynb"; } ;;
-esac
+cp "template/$language" "$dir/main.$language"
+echo "Created $dir/main.$language"
