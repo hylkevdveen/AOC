@@ -7,9 +7,6 @@ day=$1
 [[ "$day" =~ ^[0-9]{1,2}$ && $day -ge 1 && $day -le 31 ]] || { echo "'$day' is not a valid day"; usage; }
 shift
 
-aoc="https://adventofcode.com/$year/day/$day"
-echo "Preparing Advent of Code $year day $day: $aoc"
-
 language=""
 
 while getopts "l:" opt; do
@@ -26,10 +23,13 @@ case $language in
   * ) { echo "'$language' is not a valid programming language. If you have a template for it, add it to the case in this script."; usage; }
 esac
 
+aoc="https://adventofcode.com/$year/day/$day"
+echo "Preparing Advent of Code $year day $day: $aoc"
+
 dir="$year/day$day"
 
 if [ -f .env ]; then
-  export $(xargs < .env)
+  export "$(xargs < .env)"
 fi
 
 if [ "$AOC_SESSION" = "" ]; then
