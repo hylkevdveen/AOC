@@ -6,6 +6,10 @@ Hylke's AOC solutions
 
 You can use [`startday.sh`](startday.sh) to set up the template script for your preferred programming language and fetch the `input.txt` file.
 
+```
+./startday.sh <yyyy> <d> [-l <go|ipynb>]
+```
+
 ### Session cookie
 
 Because you must be logged in to get your input, you need to get your Advent of Code session ID and set the `$AOC_SESSION` environment variable.
@@ -15,6 +19,6 @@ You can find your session ID by visiting the input page of any one challenge, op
 ### Code templates
 
 Add a folder [template](./template) in which you store the templates to your preferred language as plaintext files using just the scripts file extension as name (e.g. `template/ipynb`). 
-You might have to add this to the case in the script if it's not already included.
+You might have to add this language to the script if it's not already included.
 
 _Happy coding!_
