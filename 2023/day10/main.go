@@ -12,7 +12,7 @@ func main() {
 }
 
 func Part1(pipes *p.Pipes) int {
-	// hardcoded start to make it easier
+	// Hardcoded start to make it easier
 	pipes.Move(p.West)
 	for {
 		if pipes.Current == pipes.Start {

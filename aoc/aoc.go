@@ -20,13 +20,22 @@ func InputLines() []string {
 	return ret
 }
 
-// Reverse returns the given string in reverse
-func Reverse(str string) string {
+// ReverseString returns the given string in reverse
+func ReverseString(str string) string {
 	var rts string
 	for i := len(str) - 1; i >= 0; i-- {
 		rts += string(str[i])
 	}
 	return rts
+}
+
+// ReverseSlice returns the given slice in reverse order
+func ReverseSlice[T any](slice []T) []T {
+	ecils := make([]T, 0, len(slice))
+	for i := len(slice) - 1; i >= 0; i-- {
+		ecils = append(ecils, slice[i])
+	}
+	return ecils
 }
 
 // AbsDiffInt returns the absolute difference between two given integers
